@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = {
   entry: ['./src/js/index.js'],
@@ -36,5 +37,10 @@ module.exports = {
       filename: './index.html',
     }),
     new ExtractTextPlugin('styles.css'),
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      failOnError: true,
+      cwd: process.cwd(),
+    }),
   ],
 };

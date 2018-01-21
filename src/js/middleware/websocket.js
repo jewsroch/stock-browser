@@ -4,13 +4,13 @@ import {
   WS_SEND,
   WS_CLOSE,
   WS_PING,
-} from '../actions/action-types';
-import {
   connect,
-  send,
   close,
+  send,
+  SELECT_STOCK,
 } from '../actions/actions';
 import { handleMessages, handleOpen } from './handlers';
+import { getStockQuote } from './messages';
 
 let ws;
 
@@ -37,6 +37,11 @@ const wsMiddleware = store => next => (action) => {
       // @TODO Do Disconnect
       clearInterval(window.heartbeatInterval);
       if (ws) ws.close();
+      next(action);
+      break;
+
+    case SELECT_STOCK:
+      store.dispatch(send(getStockQuote(action.payload.stock)));
       next(action);
       break;
 
