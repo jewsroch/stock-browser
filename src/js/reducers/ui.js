@@ -1,8 +1,21 @@
-import { WS_OPEN, SELECT_STOCK_LETTER, SELECT_STOCK, WS_GET_STOCK_PEERS, WS_GET_STOCK_NEWS, WS_GET_STOCK_CHART } from '../actions/actions';
+import {
+  WS_OPEN,
+  SELECT_STOCK_LETTER,
+  SELECT_STOCK,
+  WS_GET_STOCK_PEERS,
+  WS_GET_STOCK_NEWS,
+  WS_GET_STOCK_CHART,
+  SUBSCRIBE_NEWS,
+  UNSUBSCRIBE_NEWS,
+  SUBSCRIBE_QUOTE,
+  UNSUBSCRIBE_QUOTE,
+} from '../actions/actions';
 
 const initialState = {
   selectedStock: null,
   selectedLetter: 'A',
+  subscribedQuote: false,
+  subscribedNews: false,
   websocketOpen: false,
   loadingPeers: false,
   loadingQuote: false,
@@ -19,6 +32,18 @@ const uiReducer = (state = initialState, action) => {
         ...state,
         websocketOpen: true,
       };
+
+    case SUBSCRIBE_NEWS:
+      return { ...state, subscribedNews: true };
+
+    case UNSUBSCRIBE_NEWS:
+      return { ...state, subscribedNews: false };
+
+    case SUBSCRIBE_QUOTE:
+      return { ...state, subscribedQuote: true };
+
+    case UNSUBSCRIBE_QUOTE:
+      return { ...state, subscribedQuote: false };
 
     case WS_GET_STOCK_PEERS:
       return { ...state, loadingPeers: false };

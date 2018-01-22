@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import { selectedQuote } from '../../reducers/index';
 import PeersList from '../ui/PeersList';
 import NewsList from '../ui/NewsList';
-import { selectStock } from '../../actions/actions';
+import { selectStock, subscribeNews, unsubscribeNews, unsubscribeQuote, subscribeQuote } from '../../actions/actions';
 import Chart from '../ui/Chart';
+import RefreshIcon from '../ui/RefreshIcon';
 import { buildChangeSpan } from '../ui/helpers';
 
 const Wrapper = styled.div`
@@ -41,7 +42,10 @@ const formatDateTime = (dateString) => {
 };
 
 class QuoteContainer extends Component {
-  componentDidMount() {}
+  subscribeToQuote = () => {
+    this.props.onSubscribeQuote(this.props.ui.selectedStock);
+  }
+
   render() {
     const {
       quote,
@@ -50,6 +54,9 @@ class QuoteContainer extends Component {
       chart,
       ui,
       onSelectStock,
+      onSubscribeNews,
+      onUnsubscribeNews,
+      onUnsubscribeQuote,
     } = this.props;
 
     if (!quote) return null;
@@ -72,11 +79,23 @@ class QuoteContainer extends Component {
         <Quote>
           <Price>{latestPrice.toFixed(2)} USD</Price>
           <Change>{buildChangeSpan(latestPrice, close)}</Change>
-          <p>Last Updated: {formatDateTime(latestUpdate)}</p>
+          <p>
+            Last Updated: {formatDateTime(latestUpdate)}
+            <RefreshIcon
+              active={ui.subscribedQuote}
+              onClick={ui.subscribedQuote ? onUnsubscribeQuote : this.subscribeToQuote}
+            />
+          </p>
           <p>Open: {open.toFixed(2)} | Close: {close.toFixed(2)}</p>
         </Quote>
         <PeersList peers={peers} isLoading={ui.loadingPeers} onClick={onSelectStock} />
-        <NewsList news={news} isLoading={ui.loadingNews} />
+        <NewsList
+          news={news}
+          isLoading={ui.loadingNews}
+          isSubscribed={ui.subscribedNews}
+          subscribe={onSubscribeNews}
+          unsubscribe={onUnsubscribeNews}
+        />
         <Chart chart={chart} isLoading={ui.loadingChart} />
       </Wrapper>
     );
@@ -90,6 +109,10 @@ QuoteContainer.propTypes = {
   chart: PropTypes.array,
   ui: PropTypes.object,
   onSelectStock: PropTypes.func,
+  onSubscribeNews: PropTypes.func,
+  onUnsubscribeNews: PropTypes.func,
+  onSubscribeQuote: PropTypes.func,
+  onUnsubscribeQuote: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -102,6 +125,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onSelectStock: selectStock,
+  onSubscribeNews: subscribeNews,
+  onUnsubscribeNews: unsubscribeNews,
+  onSubscribeQuote: subscribeQuote,
+  onUnsubscribeQuote: unsubscribeQuote,
 };
 
 const ConnectedQuoteContainer = connect(

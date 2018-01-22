@@ -16,6 +16,12 @@ const getStockPeers = stock => buildMessage('get', 'stock.peers', stock);
 const getStockNews = stock => buildMessage('get', 'stock.news', stock);
 const getStockChart = stock => buildMessage('get', 'stock.chart', stock);
 
+const subscribeStockNews = stock => buildMessage('subscribe', 'stock.news', stock);
+const unsubscribeStockNews = () => buildMessage('unsubscribe', 'stock.news');
+
+const subscribeStockQuote = stock => buildMessage('subscribe', 'stock.quote', stock);
+const unsubscribeStockQuote = () => buildMessage('unsubscribe', 'stock.quote');
+
 
 export {
   getStockList,
@@ -23,4 +29,8 @@ export {
   getStockPeers,
   getStockNews,
   getStockChart,
+  subscribeStockNews,
+  unsubscribeStockNews,
+  subscribeStockQuote,
+  unsubscribeStockQuote,
 };

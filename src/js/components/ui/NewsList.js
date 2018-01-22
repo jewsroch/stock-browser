@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
+import RefreshIcon from './RefreshIcon';
 
 const Wrapper = styled.div`
   width: 50%;
@@ -39,10 +40,21 @@ const formatDateTime = (dateString) => {
   return dt.toLocaleString(DateTime.DATETIME_FULL);
 };
 
-
-const NewsList = ({ news, isLoading }) => (
+const NewsList = ({
+  news,
+  isLoading,
+  isSubscribed,
+  subscribe,
+  unsubscribe,
+}) => (
   <Wrapper>
-    <p>Latest News:</p>
+    <p>
+      Latest News:
+      <RefreshIcon
+        active={isSubscribed}
+        onClick={isSubscribed ? unsubscribe : subscribe}
+      />
+    </p>
     <List>
       {news.length > 0 && news.map(({
         url,
@@ -68,6 +80,9 @@ const NewsList = ({ news, isLoading }) => (
 NewsList.propTypes = {
   news: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
+  isSubscribed: PropTypes.bool,
+  subscribe: PropTypes.func,
+  unsubscribe: PropTypes.func,
 };
 
 export default NewsList;

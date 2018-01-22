@@ -4,6 +4,9 @@ import {
   getStockNews,
   getStockChart,
   getStockList,
+  unsubscribeStockNews,
+  unsubscribeStockQuote,
+  subscribeStockQuote,
 } from '../middleware/messages';
 
 // Websocket Actions
@@ -69,6 +72,25 @@ const sendStockPeersRequest = stock => send(getStockPeers(stock));
 const sendStockNewsRequest = stock => send(getStockNews(stock));
 const sendStockChartRequest = stock => send(getStockChart(stock));
 
+const sendUnsubscribeStockNewsRequest = () => send(unsubscribeStockNews());
+const sendUnsubscribeStockQuoteRequest = () => send(unsubscribeStockQuote());
+const sendSubscribeStockQuoteRequest = stock => send(subscribeStockQuote(stock));
+
+export const SUBSCRIBE_NEWS = 'SUBSCRIBE_NEWS';
+const subscribeNews = () => ({ type: SUBSCRIBE_NEWS });
+
+export const UNSUBSCRIBE_NEWS = 'UNSUBSCRIBE_NEWS';
+const unsubscribeNews = () => ({ type: UNSUBSCRIBE_NEWS });
+
+export const SUBSCRIBE_QUOTE = 'SUBSCRIBE_QUOTE';
+const subscribeQuote = stock => ({
+  type: SUBSCRIBE_QUOTE,
+  payload: { stock },
+});
+
+export const UNSUBSCRIBE_QUOTE = 'UNSUBSCRIBE_QUOTE';
+const unsubscribeQuote = () => ({ type: UNSUBSCRIBE_QUOTE });
+
 export const WS_PING = 'WS_PING';
 const ping = () => ({
   type: WS_PING,
@@ -109,10 +131,17 @@ export {
   sendStockNewsRequest,
   sendStockPeersRequest,
   sendStockChartRequest,
+  sendUnsubscribeStockNewsRequest,
+  sendUnsubscribeStockQuoteRequest,
+  sendSubscribeStockQuoteRequest,
   selectStock,
   getList,
   getQuote,
   getPeers,
   getNews,
   getChart,
+  subscribeNews,
+  unsubscribeNews,
+  subscribeQuote,
+  unsubscribeQuote,
 };
