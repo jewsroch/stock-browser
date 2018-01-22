@@ -35,7 +35,7 @@ const buildChangeSpan = (open, close) => {
   return <GreenSpan>{`+${delta}`}</GreenSpan>;
 };
 
-const Chart = ({ chart }) => {
+const Chart = ({ chart, isLoading }) => {
   const hasData = chart.length > 0;
   const yearDelta = hasData &&
     buildChangeSpan(chart[0].open, chart[chart.length - 1].close);
@@ -44,39 +44,47 @@ const Chart = ({ chart }) => {
       <p>
         2018 Change: {hasData ? yearDelta : '(Loading...)'}
       </p>
-      {hasData &&
-        <Table>
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th>Open</th>
-              <th>Close</th>
-              <th>Change</th>
+      <Table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Open</th>
+            <th>Close</th>
+            <th>Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {hasData && chart.map(({
+            label,
+            open,
+            close,
+            date,
+          }) => (
+            <tr key={date}>
+              <td>{label}</td>
+              <td>{open.toFixed(2)}</td>
+              <td>{close.toFixed(2)}</td>
+              <td>{buildChangeSpan(open, close)}</td>
             </tr>
-          </thead>
-          <tbody>
-            {chart.map(({
-              label,
-              open,
-              close,
-              date,
-            }) => (
-              <tr key={date}>
-                <td>{label}</td>
-                <td>{open.toFixed(2)}</td>
-                <td>{close.toFixed(2)}</td>
-                <td>{buildChangeSpan(open, close)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      }
+          ))}
+
+          {!hasData &&
+            <tr>
+              <td>{isLoading ? 'Loading...' : 'No Data'}</td>
+              <td />
+              <td />
+              <td />
+            </tr>
+          }
+        </tbody>
+      </Table>
     </Wrapper>
   );
 };
 
 Chart.propTypes = {
   chart: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default Chart;

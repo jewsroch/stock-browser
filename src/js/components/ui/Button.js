@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const BaseButton = styled.button`
   border: 1px solid #ddd;
+  background-color: #fff;
   display: ${props => props.display || 'block'};
   margin: ${props => props.margin || '5px 0'};
   padding: ${props => props.padding || '5px'};
@@ -13,7 +14,7 @@ const BaseButton = styled.button`
   border-radius: 2px;
 
   &:disabled {
-    background: #eee;
+    background-color: #eee;
   }
   &:hover:enabled {
     border: 1px solid #999;

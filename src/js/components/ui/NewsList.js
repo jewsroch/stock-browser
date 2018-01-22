@@ -40,11 +40,11 @@ const formatDateTime = (dateString) => {
 };
 
 
-const NewsList = ({ news }) => (
+const NewsList = ({ news, isLoading }) => (
   <Wrapper>
     <p>Latest News:</p>
     <List>
-      {news.map(({
+      {news.length > 0 && news.map(({
         url,
         headline,
         source,
@@ -57,12 +57,17 @@ const NewsList = ({ news }) => (
           <P>{source} - {formatDateTime(datetime)}</P>
         </ListItem>
       ))}
+
+      {news.length === 0 &&
+        <ListItem>{isLoading ? 'Loading...' : 'No Data'}</ListItem>
+      }
     </List>
   </Wrapper>
 );
 
 NewsList.propTypes = {
   news: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default NewsList;

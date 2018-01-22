@@ -41,6 +41,7 @@ class QuoteContainer extends Component {
       peers,
       news,
       chart,
+      ui,
       onSelectStock,
     } = this.props;
 
@@ -66,9 +67,9 @@ class QuoteContainer extends Component {
           <p>Last Updated: {formatDateTime(latestUpdate)} EST</p>
           <p>Open: {open.toFixed(2)} | Close: {close.toFixed(2)}</p>
         </Quote>
-        <PeersList peers={peers} onClick={onSelectStock} />
-        <NewsList news={news} />
-        <Chart chart={chart} />
+        <PeersList peers={peers} isLoading={ui.loadingPeers} onClick={onSelectStock} />
+        <NewsList news={news} isLoading={ui.loadingNews} />
+        <Chart chart={chart} isLoading={ui.loadingChart} />
       </Wrapper>
     );
   }
@@ -79,12 +80,12 @@ QuoteContainer.propTypes = {
   peers: PropTypes.array,
   news: PropTypes.array,
   chart: PropTypes.array,
+  ui: PropTypes.object,
   onSelectStock: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  selectedStock: state.ui.selectedStock,
-  loadingQuote: state.ui.loadingQuote,
+  ui: state.ui,
   peers: state.peers,
   news: state.news,
   chart: state.chart,

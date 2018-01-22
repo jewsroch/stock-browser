@@ -23,7 +23,7 @@ const P = styled.p`
   display: inline-block;
 `;
 
-const PeersList = ({ peers, onClick }) => (
+const PeersList = ({ peers, onClick, isLoading }) => (
   <Wrapper>
     <P>Peers:</P>
     <List>
@@ -48,8 +48,9 @@ const PeersList = ({ peers, onClick }) => (
             margin="5px 5px"
             textAlign="center"
             display="inline-block"
+            disabled
           >
-            Loading...
+            {isLoading ? 'Loading...' : 'No Data'}
           </Button>
         </ListItem>
       }
@@ -60,6 +61,7 @@ const PeersList = ({ peers, onClick }) => (
 PeersList.propTypes = {
   peers: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default PeersList;

@@ -1,4 +1,4 @@
-import { WS_OPEN, SELECT_STOCK_LETTER, SELECT_STOCK } from '../actions/actions';
+import { WS_OPEN, SELECT_STOCK_LETTER, SELECT_STOCK, WS_GET_STOCK_PEERS, WS_GET_STOCK_NEWS, WS_GET_STOCK_CHART } from '../actions/actions';
 
 const initialState = {
   selectedStock: null,
@@ -20,21 +20,30 @@ const uiReducer = (state = initialState, action) => {
         websocketOpen: true,
       };
 
+    case WS_GET_STOCK_PEERS:
+      return { ...state, loadingPeers: false };
+
+    case WS_GET_STOCK_NEWS:
+      return { ...state, loadingNews: false };
+
+    case WS_GET_STOCK_CHART:
+      return { ...state, loadingChart: false };
+
     case SELECT_STOCK: {
       const { stock } = payload;
-
-      if (stock[0] !== state.selectedLetter) {
-        return {
-          ...state,
-          selectedLetter: stock[0],
-          selectedStock: stock,
-        };
-      }
-
-      return {
+      const newState = {
         ...state,
+        loadingPeers: true,
+        loadingNews: true,
+        loadingChart: true,
         selectedStock: payload.stock,
       };
+
+      if (stock[0] !== state.selectedLetter) {
+        newState.selectedLetter = stock[0];
+      }
+
+      return newState;
     }
 
     case SELECT_STOCK_LETTER:
