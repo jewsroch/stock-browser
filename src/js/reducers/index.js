@@ -2,8 +2,12 @@ import { combineReducers } from 'redux';
 import stocksReducer from './stocks';
 import uiReducer from './ui';
 import quotesReducer from './quotes';
+import newsReducer from './news';
 import simpleReducer from './simple';
-import { WS_GET_STOCK_CHART, WS_GET_STOCK_NEWS, WS_GET_STOCK_PEERS } from '../actions/actions';
+import {
+  WS_GET_STOCK_CHART,
+  WS_GET_STOCK_PEERS,
+} from '../actions/actions';
 
 export const selectedQuote = state =>
   state.quotes[state.ui.selectedStock];
@@ -12,7 +16,7 @@ export const selectedStockGroup = state =>
 
 export default combineReducers({
   chart: simpleReducer(WS_GET_STOCK_CHART),
-  news: simpleReducer(WS_GET_STOCK_NEWS),
+  news: newsReducer,
   peers: simpleReducer(WS_GET_STOCK_PEERS),
   quotes: quotesReducer,
   stocks: stocksReducer,

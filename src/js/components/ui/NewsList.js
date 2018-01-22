@@ -4,37 +4,6 @@ import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import RefreshIcon from './RefreshIcon';
 
-const Wrapper = styled.div`
-  width: 50%;
-  float: left;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const ListItem = styled.li`
-  border: 1px solid #ddd;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-`;
-
-const Title = styled.h4`
-  margin: 0 0 10px 0;
-  font-weight: 400;
-`;
-
-const P = styled.p`
-  margin: 0;
-`;
-
-const A = styled.a`
-  color: #555;
-`;
-
 const formatDateTime = (dateString) => {
   const dt = DateTime.fromISO(dateString, { zone: 'America/New_York' });
   return dt.toLocaleString(DateTime.DATETIME_FULL);
@@ -84,5 +53,36 @@ NewsList.propTypes = {
   subscribe: PropTypes.func,
   unsubscribe: PropTypes.func,
 };
+
+const Wrapper = styled.div`
+  width: 50%;
+  float: left;
+`;
+
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const ListItem = styled.li`
+  border: 1px solid #ddd;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+`;
+
+const Title = styled.h4`
+  margin: 0 0 10px 0;
+  font-weight: 400;
+`;
+
+const P = styled.p`
+  margin: 0;
+`;
+
+const A = styled.a`
+  color: #555;
+`;
 
 export default NewsList;

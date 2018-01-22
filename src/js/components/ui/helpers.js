@@ -9,7 +9,7 @@ const GreenSpan = styled.span`
   color: #3d9400;
 `;
 
-const buildChangeSpan = (open, close) => {
+export const buildChangeSpan = (open, close) => {
   const delta = (close - open).toFixed(2);
   if (delta < 0) {
     return <RedSpan>{`${delta}`}</RedSpan>;
@@ -17,6 +17,4 @@ const buildChangeSpan = (open, close) => {
   return <GreenSpan>{`+${delta}`}</GreenSpan>;
 };
 
-export {
-  buildChangeSpan,
-};
+export default {};

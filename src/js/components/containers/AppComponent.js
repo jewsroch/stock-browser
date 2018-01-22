@@ -7,16 +7,10 @@ import QuoteContainer from './QuoteContainer';
 import LetterList from '../ui/LetterList';
 import StockListContainer from './StockListContainer';
 
-const StockPicker = styled.div`
-  float: left;
-  width: 25%;
-  min-width: 280px;
-  height: 100%;
-`;
-
 class AppComponent extends Component {
   componentDidMount() {
-    this.props.wsConnect();
+    const url = 'wss://stock-browser.herokuapp.com/';
+    this.props.wsConnect(url);
   }
 
   render() {
@@ -65,5 +59,12 @@ const ConnectedAppComponent = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(AppComponent);
+
+const StockPicker = styled.div`
+  float: left;
+  width: 25%;
+  min-width: 280px;
+  height: 100%;
+`;
 
 export default ConnectedAppComponent;

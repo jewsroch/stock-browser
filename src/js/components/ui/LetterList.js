@@ -4,16 +4,6 @@ import styled from 'styled-components';
 import Button from './Button';
 import { lettersArray } from '../../reducers/stocks-initial-state';
 
-const List = styled.div`
-  float: left;
-  padding: 10px;
-  width: 42px;
-  border-right: 1px solid #ddd;
-  text-align: center;
-  height: 100vh;
-`;
-
-
 const LetterList = ({ selectedLetter, stocks, onClick }) => (
   <List>
     {lettersArray.map(l => (
@@ -39,5 +29,14 @@ LetterList.propTypes = {
   stocks: PropTypes.object,
   onClick: PropTypes.func,
 };
+
+const List = styled.div`
+  float: left;
+  padding: 10px;
+  width: 42px;
+  border-right: 1px solid #ddd;
+  text-align: center;
+  height: 100vh;
+`;
 
 export default LetterList;

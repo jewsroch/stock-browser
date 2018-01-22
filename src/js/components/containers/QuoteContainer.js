@@ -11,31 +11,6 @@ import Chart from '../ui/Chart';
 import RefreshIcon from '../ui/RefreshIcon';
 import { buildChangeSpan } from '../ui/helpers';
 
-const Wrapper = styled.div`
-  padding: 0 20px;
-  float: left;
-  width: 75%;
-  height: 100vh;
-  overflow: auto;
-`;
-
-const Price = styled.span`
-  font-size: 1.5rem;
-  display: inline-block;
-`;
-
-const Change = styled.span`
-  font-size: 1rem;
-  display: inline-block;
-  margin-left: 5px;
-`;
-
-const Quote = styled.div`
-  border: 1px solid #ddd;
-  margin: 20px 0 0;
-  padding: 20px 20px 10px;
-`;
-
 const formatDateTime = (dateString) => {
   const dt = DateTime.fromMillis(dateString, { zone: 'America/New_York' });
   return dt.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
@@ -135,5 +110,30 @@ const ConnectedQuoteContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(QuoteContainer);
+
+const Wrapper = styled.div`
+  padding: 0 20px;
+  float: left;
+  width: 75%;
+  height: 100vh;
+  overflow: auto;
+`;
+
+const Price = styled.span`
+  font-size: 1.5rem;
+  display: inline-block;
+`;
+
+const Change = styled.span`
+  font-size: 1rem;
+  display: inline-block;
+  margin-left: 5px;
+`;
+
+const Quote = styled.div`
+  border: 1px solid #ddd;
+  margin: 20px 0 0;
+  padding: 20px 20px 10px;
+`;
 
 export default ConnectedQuoteContainer;

@@ -3,23 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { buildChangeSpan } from './helpers';
 
-const Wrapper = styled.div`
-  width: 50%;
-  float: left;
-  padding: 0 10px 0 20px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-
-  td, th {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    text-align: center;
-  }
-`;
-
 const Chart = ({ chart, isLoading }) => {
   const hasData = chart.length > 0;
   const yearDelta = hasData &&
@@ -71,5 +54,22 @@ Chart.propTypes = {
   chart: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
 };
+
+const Wrapper = styled.div`
+  width: 50%;
+  float: left;
+  padding: 0 10px 0 20px;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  td, th {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: center;
+  }
+`;
 
 export default Chart;

@@ -6,14 +6,6 @@ import * as actions from '../../actions/actions';
 import { selectedStockGroup } from '../../reducers/index';
 import Button from '../ui/Button';
 
-const StockList = styled.div`
-  float: left;
-  padding: 10px;
-  width: calc(100% - 42px);
-  height: 100vh;
-  overflow: auto;
-`;
-
 class StockListContainer extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.selectedStock !== prevProps.selectedStock) {
@@ -73,5 +65,13 @@ const ConnectedStockListContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(StockListContainer);
+
+const StockList = styled.div`
+  float: left;
+  padding: 10px;
+  width: calc(100% - 42px);
+  height: 100vh;
+  overflow: auto;
+`;
 
 export default ConnectedStockListContainer;

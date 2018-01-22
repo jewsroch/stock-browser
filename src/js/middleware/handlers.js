@@ -10,11 +10,14 @@ import {
   getNews,
   getChart,
   selectStock,
+  updateQuote,
+  updateNews,
 } from '../actions/actions';
 
 export const handleMessages = dispatch => (event) => {
   const { namespace, name } = JSON.parse(event.data);
 
+  // Data Messages
   if (namespace === 'get') {
     switch (name) {
       case 'stock.list':
@@ -37,6 +40,22 @@ export const handleMessages = dispatch => (event) => {
     }
   }
 
+  // Subscription Updates
+  if (namespace === undefined) {
+    switch (name) {
+      case 'stock.news':
+        dispatch(updateNews(event));
+        break;
+      case 'stock.quote':
+        dispatch(updateQuote(event));
+        break;
+
+      default:
+        dispatch(message(event));
+    }
+  }
+
+  // Control Messages
   if (namespace === 'control') {
     switch (name) {
       case 'pong':

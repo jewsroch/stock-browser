@@ -3,26 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Button from './Button';
 
-const Wrapper = styled.div`
-  clear: both;
-`;
-
-const List = styled.ul`
-  display: inline-block;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  height: 37px;
-`;
-
-const ListItem = styled.li`
-  display: inline-block;
-`;
-
-const P = styled.p`
-  display: inline-block;
-`;
-
 const PeersList = ({ peers, onClick, isLoading }) => (
   <Wrapper>
     <P>Peers:</P>
@@ -63,5 +43,25 @@ PeersList.propTypes = {
   onClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
+
+const Wrapper = styled.div`
+  clear: both;
+`;
+
+const List = styled.ul`
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 37px;
+`;
+
+const ListItem = styled.li`
+  display: inline-block;
+`;
+
+const P = styled.p`
+  display: inline-block;
+`;
 
 export default PeersList;

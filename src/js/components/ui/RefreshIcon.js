@@ -1,29 +1,8 @@
 /* eslint-disable react/jsx-max-props-per-line */
 /* eslint-disable react/jsx-first-prop-new-line */
 import React from 'react';
+import PropType from 'prop-types';
 import styled, { css } from 'styled-components';
-
-const IconContainer = styled.button`
-  border: none;
-  padding: 0;
-  background: none;
-  width: 23px;
-  display: inline-block;
-  margin: ${props => props.margin || '0 0 0 5px'};
-  &:hover {
-    cursor: pointer;
-  }
-  ${props => props.active && css`
-    svg {
-      animation: spin 2000ms linear infinite;
-    }
-
-    @keyframes spin {
-      from {transform:rotate(0deg);}
-      to {transform:rotate(360deg);}
-    }
-  `}
-`;
 
 const RefreshIcon = props => (
   <IconContainer {...props}>
@@ -53,5 +32,31 @@ const RefreshIcon = props => (
     </svg>
   </IconContainer>
 );
+
+RefreshIcon.propTypes = {
+  active: PropType.bool,
+};
+
+const IconContainer = styled.button`
+  border: none;
+  padding: 0;
+  background: none;
+  width: 23px;
+  display: inline-block;
+  margin: 0 0 0 5px;
+  &:hover {
+    cursor: pointer;
+  }
+  ${props => props.active && css`
+    svg {
+      animation: spin 2000ms linear infinite;
+    }
+
+    @keyframes spin {
+      from {transform:rotate(0deg);}
+      to {transform:rotate(360deg);}
+    }
+  `}
+`;
 
 export default RefreshIcon;
