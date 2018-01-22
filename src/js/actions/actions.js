@@ -17,6 +17,8 @@ const createMessageAction = type => event => ({
   },
 });
 
+// @TODO - Break into separate files
+
 // Websocket Messages
 export const WS_MESSAGE = 'WS_MESSAGE';
 const message = createMessageAction(WS_MESSAGE);

@@ -41,7 +41,7 @@ const IconContainer = styled.button`
   border: none;
   padding: 0;
   background: none;
-  width: 23px;
+  width: 18px;
   display: inline-block;
   margin: 0 0 0 5px;
   &:hover {

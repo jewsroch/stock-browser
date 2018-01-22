@@ -2,10 +2,11 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/actions';
+
 import QuoteContainer from './QuoteContainer';
 import LetterList from '../ui/LetterList';
 import StockListContainer from './StockListContainer';
+import * as actions from '../../actions/actions';
 
 class AppComponent extends Component {
   componentDidMount() {

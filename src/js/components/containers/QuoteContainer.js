@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { selectedQuote } from '../../reducers/index';
 import PeersList from '../ui/PeersList';
 import NewsList from '../ui/NewsList';
-import { selectStock, subscribeNews, unsubscribeNews, unsubscribeQuote, subscribeQuote } from '../../actions/actions';
 import Chart from '../ui/Chart';
 import RefreshIcon from '../ui/RefreshIcon';
 import { buildChangeSpan } from '../ui/helpers';
+import {
+  selectStock,
+  subscribeNews,
+  unsubscribeNews,
+  unsubscribeQuote,
+  subscribeQuote,
+} from '../../actions/actions';
 
 const formatDateTime = (dateString) => {
   const dt = DateTime.fromMillis(dateString, { zone: 'America/New_York' });

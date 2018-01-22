@@ -4,7 +4,7 @@ import {
   SELECT_STOCK,
 } from '../actions/actions';
 
-const initialState = {};
+const initialState = [];
 const newsReducer = (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {

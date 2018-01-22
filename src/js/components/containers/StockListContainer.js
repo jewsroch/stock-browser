@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import * as actions from '../../actions/actions';
-import { selectedStockGroup } from '../../reducers/index';
+
 import Button from '../ui/Button';
+import { selectedStockGroup } from '../../reducers/index';
+import * as actions from '../../actions/actions';
 
 class StockListContainer extends Component {
   componentDidUpdate(prevProps) {
