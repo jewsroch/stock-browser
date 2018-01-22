@@ -1,42 +1,42 @@
 import {
   open,
-  message,
+  wsMessage,
   ping,
   pong,
-  sendStockListRequest,
-  getList,
-  getQuote,
-  getPeers,
-  getNews,
-  getChart,
+  wsMessageGetList,
+  wsMessageGetQuote,
+  wsMessageGetPeers,
+  wsMessageGetNews,
+  wsMessageGetChart,
   selectStock,
-  updateQuote,
-  updateNews,
+  wsMessageUpdateQuote,
+  wsMessageUpdateNews,
+  sendStockListRequest,
 } from '../actions/actions';
 
-export const handleMessages = dispatch => (event) => {
+const handleMessages = dispatch => (event) => {
   const { namespace, name } = JSON.parse(event.data);
 
-  // Data Messages
+  // Data (get) Responses
   if (namespace === 'get') {
     switch (name) {
       case 'stock.list':
-        dispatch(getList(event));
+        dispatch(wsMessageGetList(event));
         break;
       case 'stock.quote':
-        dispatch(getQuote(event));
+        dispatch(wsMessageGetQuote(event));
         break;
       case 'stock.peers':
-        dispatch(getPeers(event));
+        dispatch(wsMessageGetPeers(event));
         break;
       case 'stock.news':
-        dispatch(getNews(event));
+        dispatch(wsMessageGetNews(event));
         break;
       case 'stock.chart':
-        dispatch(getChart(event));
+        dispatch(wsMessageGetChart(event));
         break;
       default:
-        dispatch(message(event));
+        dispatch(wsMessage(event));
     }
   }
 
@@ -44,14 +44,14 @@ export const handleMessages = dispatch => (event) => {
   if (namespace === undefined) {
     switch (name) {
       case 'stock.news':
-        dispatch(updateNews(event));
+        dispatch(wsMessageUpdateNews(event));
         break;
       case 'stock.quote':
-        dispatch(updateQuote(event));
+        dispatch(wsMessageUpdateQuote(event));
         break;
 
       default:
-        dispatch(message(event));
+        dispatch(wsMessage(event));
     }
   }
 
@@ -62,17 +62,20 @@ export const handleMessages = dispatch => (event) => {
         dispatch(pong());
         break;
       default:
-        dispatch(message(event));
+        dispatch(wsMessage(event));
         break;
     }
   }
 };
 
-export const handleOpen = dispatch => (event) => {
+const handleOpen = dispatch => (event) => {
   dispatch(open(event));
+
+  // Fetch Stocks (A group is hardcoded)
   dispatch(sendStockListRequest(event));
-  // @TODO _ REMOVE
-  dispatch(selectStock('AAPL'));
+
+  // Preselect First Stock
+  dispatch(selectStock('A'));
 
   // Set up Ping/Pong Heartbeat
   // @TODO - don't set this on window...
@@ -80,3 +83,5 @@ export const handleOpen = dispatch => (event) => {
     dispatch(ping());
   }, 5000);
 };
+
+export { handleMessages, handleOpen };
