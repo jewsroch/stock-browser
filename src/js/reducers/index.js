@@ -2,18 +2,18 @@ import { combineReducers } from 'redux';
 import stocksReducer from './stocks';
 import uiReducer from './ui';
 import quotesReducer from './quotes';
+import simpleReducer from './simple';
+import { WS_GET_STOCK_CHART, WS_GET_STOCK_NEWS, WS_GET_STOCK_PEERS } from '../actions/actions';
 
-const noopReducer = (state = {}) => ({
-  ...state,
-  foo: 'bar',
-});
-
-export const selectedQuote = state => state.quotes[state.ui.selectedStock];
+export const selectedQuote = state =>
+  state.quotes[state.ui.selectedStock];
+export const selectedStockGroup = state =>
+  state.stocks[state.ui.selectedLetter];
 
 export default combineReducers({
-  chart: noopReducer,
-  news: noopReducer,
-  peers: noopReducer,
+  chart: simpleReducer(WS_GET_STOCK_CHART),
+  news: simpleReducer(WS_GET_STOCK_NEWS),
+  peers: simpleReducer(WS_GET_STOCK_PEERS),
   quotes: quotesReducer,
   stocks: stocksReducer,
   ui: uiReducer,

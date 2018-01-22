@@ -4,10 +4,17 @@ import {
   WS_SEND,
   WS_CLOSE,
   WS_PING,
+  SELECT_STOCK,
   connect,
   close,
   send,
-  SELECT_STOCK,
+  sendStockListRequest,
+  getQuote,
+  getPeers,
+  sendStockQuoteRequest,
+  sendStockPeersRequest,
+  sendStockNewsRequest,
+  sendStockChartRequest,
 } from '../actions/actions';
 import { handleMessages, handleOpen } from './handlers';
 import { getStockQuote } from './messages';
@@ -41,7 +48,10 @@ const wsMiddleware = store => next => (action) => {
       break;
 
     case SELECT_STOCK:
-      store.dispatch(send(getStockQuote(action.payload.stock)));
+      store.dispatch(sendStockQuoteRequest(action.payload.stock));
+      store.dispatch(sendStockPeersRequest(action.payload.stock));
+      store.dispatch(sendStockNewsRequest(action.payload.stock));
+      store.dispatch(sendStockChartRequest(action.payload.stock));
       next(action);
       break;
 

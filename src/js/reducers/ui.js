@@ -10,6 +10,7 @@ const initialState = {
   loadingNews: false,
   loadingStocks: false,
 };
+
 const uiReducer = (state = initialState, action) => {
   const { payload } = action;
   switch (action.type) {
@@ -19,11 +20,22 @@ const uiReducer = (state = initialState, action) => {
         websocketOpen: true,
       };
 
-    case SELECT_STOCK:
+    case SELECT_STOCK: {
+      const { stock } = payload;
+
+      if (stock[0] !== state.selectedLetter) {
+        return {
+          ...state,
+          selectedLetter: stock[0],
+          selectedStock: stock,
+        };
+      }
+
       return {
         ...state,
         selectedStock: payload.stock,
       };
+    }
 
     case SELECT_STOCK_LETTER:
       return {

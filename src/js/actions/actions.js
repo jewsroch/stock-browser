@@ -1,3 +1,11 @@
+import {
+  getStockQuote,
+  getStockPeers,
+  getStockNews,
+  getStockChart,
+  getStockList,
+} from '../middleware/messages';
+
 // Websocket Actions
 const createMessageAction = type => event => ({
   type,
@@ -9,8 +17,18 @@ const createMessageAction = type => event => ({
 
 export const WS_MESSAGE = 'WS_MESSAGE';
 const message = createMessageAction(WS_MESSAGE);
+
+export const WS_GET_STOCK_LIST = 'WS_GET_STOCK_LIST';
+const getList = createMessageAction(WS_GET_STOCK_LIST);
+
 export const WS_GET_STOCK_QUOTE = 'WS_GET_STOCK_QUOTE';
 const getQuote = createMessageAction(WS_GET_STOCK_QUOTE);
+export const WS_GET_STOCK_PEERS = 'WS_GET_STOCK_PEERS';
+const getPeers = createMessageAction(WS_GET_STOCK_PEERS);
+export const WS_GET_STOCK_NEWS = 'WS_GET_STOCK_NEWS';
+const getNews = createMessageAction(WS_GET_STOCK_NEWS);
+export const WS_GET_STOCK_CHART = 'WS_GET_STOCK_CHART';
+const getChart = createMessageAction(WS_GET_STOCK_CHART);
 
 export const WS_OPEN = 'WS_OPEN';
 const open = event => ({
@@ -44,6 +62,12 @@ const send = messagePayload => ({
   type: WS_SEND,
   payload: messagePayload,
 });
+
+const sendStockListRequest = () => send(getStockList());
+const sendStockQuoteRequest = stock => send(getStockQuote(stock));
+const sendStockPeersRequest = stock => send(getStockPeers(stock));
+const sendStockNewsRequest = stock => send(getStockNews(stock));
+const sendStockChartRequest = stock => send(getStockChart(stock));
 
 export const WS_PING = 'WS_PING';
 const ping = () => ({
@@ -80,6 +104,15 @@ export {
   ping,
   pong,
   selectStockLetter,
+  sendStockListRequest,
+  sendStockQuoteRequest,
+  sendStockNewsRequest,
+  sendStockPeersRequest,
+  sendStockChartRequest,
   selectStock,
+  getList,
   getQuote,
+  getPeers,
+  getNews,
+  getChart,
 };
