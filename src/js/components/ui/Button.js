@@ -29,7 +29,10 @@ const BaseButton = styled.button`
 
 class Button extends Component {
   click = () => {
-    this.props.onClick(this.props.value);
+    const { onClick, value } = this.props;
+    if (onClick && value) {
+      onClick(value);
+    }
   }
 
   render() {

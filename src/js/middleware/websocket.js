@@ -7,17 +7,12 @@ import {
   SELECT_STOCK,
   connect,
   close,
-  send,
-  sendStockListRequest,
-  getQuote,
-  getPeers,
   sendStockQuoteRequest,
   sendStockPeersRequest,
   sendStockNewsRequest,
   sendStockChartRequest,
 } from '../actions/actions';
 import { handleMessages, handleOpen } from './handlers';
-import { getStockQuote } from './messages';
 
 let ws;
 

@@ -37,6 +37,7 @@ const LetterList = ({ selectedLetter, stocks, onClick }) => (
 LetterList.propTypes = {
   selectedLetter: PropTypes.string.isRequired,
   stocks: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 export default LetterList;

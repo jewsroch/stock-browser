@@ -1,8 +1,8 @@
-// @TODO - Generate IDs?
+import shortid from 'shortid';
 
 const buildMessage = (namespace, name, stock) => {
   const message = {
-    id: 'id', // TODO GENERATE,
+    id: shortid.generate(), // TODO GENERATE,
     namespace,
     name,
   };
