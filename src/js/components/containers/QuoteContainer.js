@@ -8,6 +8,7 @@ import PeersList from '../ui/PeersList';
 import NewsList from '../ui/NewsList';
 import { selectStock } from '../../actions/actions';
 import Chart from '../ui/Chart';
+import { buildChangeSpan } from '../ui/helpers';
 
 const Wrapper = styled.div`
   padding: 0 20px;
@@ -19,7 +20,13 @@ const Wrapper = styled.div`
 
 const Price = styled.span`
   font-size: 1.5rem;
-  display: block;
+  display: inline-block;
+`;
+
+const Change = styled.span`
+  font-size: 1rem;
+  display: inline-block;
+  margin-left: 5px;
 `;
 
 const Quote = styled.div`
@@ -64,7 +71,8 @@ class QuoteContainer extends Component {
 
         <Quote>
           <Price>{latestPrice.toFixed(2)} USD</Price>
-          <p>Last Updated: {formatDateTime(latestUpdate)} EST</p>
+          <Change>{buildChangeSpan(latestPrice, close)}</Change>
+          <p>Last Updated: {formatDateTime(latestUpdate)}</p>
           <p>Open: {open.toFixed(2)} | Close: {close.toFixed(2)}</p>
         </Quote>
         <PeersList peers={peers} isLoading={ui.loadingPeers} onClick={onSelectStock} />

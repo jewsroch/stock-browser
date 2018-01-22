@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { buildChangeSpan } from './helpers';
 
 const Wrapper = styled.div`
   width: 50%;
@@ -18,22 +19,6 @@ const Table = styled.table`
     text-align: center;
   }
 `;
-
-const RedSpan = styled.span`
-  color: #dd4b39;
-`;
-
-const GreenSpan = styled.span`
-  color: #3d9400;
-`;
-
-const buildChangeSpan = (open, close) => {
-  const delta = (close - open).toFixed(2);
-  if (delta < 0) {
-    return <RedSpan>{`${delta}`}</RedSpan>;
-  }
-  return <GreenSpan>{`+${delta}`}</GreenSpan>;
-};
 
 const Chart = ({ chart, isLoading }) => {
   const hasData = chart.length > 0;
