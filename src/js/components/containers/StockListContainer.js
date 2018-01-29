@@ -13,16 +13,18 @@ class StockListContainer extends Component {
   }
 
   componentDidMount() {
-    rxjsStoreFinal$.subscribe((state) => {
-      if (state.ui === undefined) return; // Hack to get past not having initialState
-
-      const stocks = selectedStockGroup(state);
-      const { selectedStock } = state.ui;
-      this.setState({
-        stocks,
-        selectedStock,
+    rxjsStoreFinal$
+      .map((state) => {
+        const stocks = selectedStockGroup(state);
+        const { selectedStock } = state.ui;
+        return { stocks, selectedStock };
+      })
+      .distinctUntilChanged((a, b) =>
+        (a.stocks.length === b.stocks.length) && (a.selectedStock === b.selectedStock))
+      .subscribe((state) => {
+        console.log('****STATE CHANGED****', state);
+        this.setState(state);
       });
-    });
   }
 
   componentDidUpdate(_, prevState) {

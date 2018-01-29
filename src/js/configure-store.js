@@ -16,13 +16,13 @@ export const rxjsStore$ = rxjsActions$
 /* eslint-disable no-console */
 // Dispatching actions to rxjsStore using middleware...
 const rxjsMiddleware = store => next => (action) => {
-  console.log('ACTION TRIGGERED', action);
+  // console.log('ACTION TRIGGERED', action);
   rxjsActions$.next(action);
   next(action);
 };
 
-export const rxjsStoreFinal$ = rxjsStore$
-  .do(data => console.log('NEXTSTATE:', data.ui.selectedStock));
+export const rxjsStoreFinal$ = rxjsStore$;
+// .do(data => console.log('NEXTSTATE:', data.ui.selectedStock));
 // -------------------
 
 const middleware = [thunk, wsMiddleware, rxjsMiddleware];
