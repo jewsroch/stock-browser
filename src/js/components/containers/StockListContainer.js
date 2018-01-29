@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import reduxStore, { rxjsStoreFinal$, rxjsActions$ } from '../../configure-store';
 
 import Button from '../ui/Button';
 import { selectedStockGroup } from '../../reducers/index';
 import * as actions from '../../actions/actions';
 
 class StockListContainer extends Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.selectedStock !== prevProps.selectedStock) {
+  state = {
+    stocks: [],
+    selectedStock: null,
+  }
+
+  componentDidMount() {
+    rxjsStoreFinal$.subscribe((state) => {
+      if (state.ui === undefined) return; // Hack to get past not having initialState
+
+      const stocks = selectedStockGroup(state);
+      const { selectedStock } = state.ui;
+      this.setState({
+        stocks,
+        selectedStock,
+      });
+    });
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.selectedStock !== prevState.selectedStock) {
       this.scrollIntoView();
     }
   }
@@ -26,15 +43,23 @@ class StockListContainer extends Component {
     }
   }
 
+  selectStock = (stock) => {
+    const action = actions.selectStock(stock);
+    const dispatch = a => rxjsActions$.next(a);
+    const getState = () => ({ ui: {} }); // selectStock action cleans up old subs based on UI state.
+    action(dispatch, getState); // Hack for thunk actions
+    reduxStore.dispatch(action); // Hack to still dispatch to normal redux for rest of app.
+  }
+
   render() {
-    const { stocks, selectStock, selectedStock } = this.props;
+    const { stocks, selectedStock } = this.state;
     return (
       <StockList>
         {stocks && stocks.map(stock => (
           <Button
             key={stock.symbol}
             value={stock.symbol}
-            onClick={selectStock}
+            onClick={this.selectStock}
             selected={stock.symbol === selectedStock}
             innerRef={this.setRef}
           >
@@ -46,26 +71,18 @@ class StockListContainer extends Component {
   }
 }
 
-StockListContainer.propTypes = {
-  stocks: PropTypes.array,
-  selectStock: PropTypes.func,
-  selectedStock: PropTypes.string,
-};
+// StockListContainer.propTypes = {
+//   selectStock: PropTypes.func,
+// };
 
-const mapStateToProps = state => ({
-  selectedStock: state.ui.selectedStock,
-  loadingStock: state.ui.loadingQuote,
-  stocks: selectedStockGroup(state),
-});
+// const mapDispatchToProps = {
+//   selectStock: actions.selectStock,
+// };
 
-const mapDispatchToProps = {
-  selectStock: actions.selectStock,
-};
-
-const ConnectedStockListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(StockListContainer);
+// const ConnectedStockListContainer = connect(
+//   {},
+//   mapDispatchToProps,
+// )(StockListContainer);
 
 const StockList = styled.div`
   float: left;
@@ -75,4 +92,4 @@ const StockList = styled.div`
   overflow: auto;
 `;
 
-export default ConnectedStockListContainer;
+export default StockListContainer;
