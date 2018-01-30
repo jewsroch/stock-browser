@@ -3,12 +3,12 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { injectGlobal } from 'styled-components';
 import AppComponent from './components/containers/AppComponent';
-import configureStore from './configure-store';
+import reduxStore from './configure-store';
 
 const wrapper = document.getElementById('app');
 
 wrapper && render(
-  <Provider store={configureStore()}>
+  <Provider store={reduxStore}>
     <AppComponent />
   </Provider>,
   wrapper,
